@@ -1,0 +1,539 @@
+<title>Kronika Baronii Basleur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Sorts+Mill+Goudy:ital@0;1&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap">
+
+<style>
+  :root {
+    /* welin i inkausty */
+    --vellum:      #e7e1d1;
+    --vellum-deep: #ddd5c0;
+    --vellum-edge: #cfc5ad;
+    --ink:         #241e18;
+    --ink-faded:   #6a5f4e;
+    --minium:      #9a2a1c;
+    --verdigris:   #2b4334;
+    --soot:        #14100d;
+
+    --serif:   "EB Garamond", "Iowan Old Style", Georgia, serif;
+    --display: "Sorts Mill Goudy", "EB Garamond", Georgia, serif;
+    --typed:   "Courier Prime", "Courier New", ui-monospace, monospace;
+
+    --measure: 35rem;
+    --rail: 9rem;
+    --gutter: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  body {
+    background: var(--vellum);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 1.14rem;
+    line-height: 1.64;
+    font-feature-settings: "onum" 1, "kern" 1, "liga" 1;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- szkielet ---------- */
+
+  .sheet {
+    max-width: 62rem;
+    margin: 0 auto;
+    padding-inline: var(--gutter);
+    padding-block: 0 5rem;
+  }
+
+
+  /* ---------- karta tytułowa ---------- */
+
+  .frontis { margin-top: 2.2rem; }
+
+  .plate {
+    background: var(--soot);
+    border: 1px solid var(--soot);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.35) inset, 0 6px 18px -14px rgba(20,16,13,0.9);
+  }
+  .plate img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+  /* rycina tytułowa: cała, bez kadrowania; na niskich ekranach mieści się w kadrze */
+  .plate--crop img {
+    max-height: 76vh;
+    object-fit: contain;
+  }
+  .plate figcaption {
+    font-family: var(--typed);
+    font-size: 0.73rem;
+    line-height: 1.55;
+    letter-spacing: 0.02em;
+    color: #b9ab93;
+    padding: 0.7rem 0.9rem 0.85rem;
+    border-top: 1px solid rgba(185,171,147,0.22);
+  }
+  .plate figcaption i { color: #8d8270; font-style: italic; }
+
+  .titleblock {
+    text-align: center;
+    padding-block: 2.6rem 0.5rem;
+    border-bottom: 3px double var(--vellum-edge);
+    margin-bottom: 3.2rem;
+  }
+  .titleblock h1 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(2.5rem, 7.5vw, 4.1rem);
+    line-height: 1.02;
+    letter-spacing: 0.005em;
+    text-wrap: balance;
+    margin: 0 0 0.9rem;
+  }
+  .titleblock .rubric {
+    font-family: var(--display);
+    font-style: italic;
+    color: var(--minium);
+    font-size: 1.12rem;
+    max-width: 38rem;
+    margin: 0 auto 1.5rem;
+  }
+  .frontis .plate { max-width: none; }
+  .frontis .plate figcaption { text-align: center; }
+
+  .fleuron { display: block; }
+  .fleuron svg { display: block; width: 22px; height: auto; margin-inline: auto; fill: var(--minium); opacity: 0.85; }
+
+  /* ---------- wpisy z szyną marginaliów ---------- */
+
+  .entry {
+    display: grid;
+    gap: 0 2.5rem;
+    margin-bottom: 3.6rem;
+  }
+  @media (min-width: 62rem) {
+    .entry { grid-template-columns: var(--rail) minmax(0, 1fr); }
+    .entry > .rail { text-align: right; padding-top: 0.55rem; }
+  }
+
+  .rail {
+    font-family: var(--typed);
+    font-size: 0.7rem;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+    color: var(--verdigris);
+    margin-bottom: 0.6rem;
+  }
+  .rail .n {
+    display: block;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-faded);
+    text-transform: none;
+    margin-top: 0.3rem;
+  }
+
+  .entry > .col { min-width: 0; }
+
+  h2 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(1.75rem, 3.6vw, 2.35rem);
+    line-height: 1.14;
+    text-wrap: balance;
+    margin: 0 0 1.1rem;
+  }
+  h3 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 1.36rem;
+    line-height: 1.22;
+    color: var(--minium);
+    text-wrap: balance;
+    margin: 2.4rem 0 0.7rem;
+  }
+  h3 .epithet {
+    display: block;
+    font-family: var(--typed);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin-top: 0.42rem;
+  }
+
+  p, .ledger, .note, .plate { max-width: var(--measure); }
+  p { margin: 0 0 1.05rem; }
+  p:last-child { margin-bottom: 0; }
+
+  .lede { font-size: 1.2rem; }
+
+  /* inicjał — raz, na otwarciu */
+  .versal::first-letter {
+    font-family: var(--display);
+    float: left;
+    font-size: 3.85em;
+    line-height: 0.82;
+    padding: 0.06em 0.09em 0 0;
+    color: var(--minium);
+  }
+
+  /* ---------- rejestr liczb ---------- */
+
+  .ledger {
+    margin: 1.6rem 0 0;
+    padding: 1.1rem 0 0;
+    border-top: 1px solid var(--vellum-edge);
+    font-variant-numeric: oldstyle-nums;
+  }
+  .ledger-title {
+    font-family: var(--typed);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin-bottom: 0.75rem;
+  }
+  .ledger dl { margin: 0; }
+  .ledger .row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.28rem 0;
+  }
+  .ledger dt { flex: 0 1 auto; }
+  .ledger .leader {
+    flex: 1 1 auto;
+    border-bottom: 1px dotted var(--vellum-edge);
+    transform: translateY(-0.3em);
+    min-width: 1.5rem;
+  }
+  .ledger dd {
+    margin: 0;
+    flex: 0 0 auto;
+    font-family: var(--display);
+    white-space: nowrap;
+  }
+
+  /* ---------- panel maszynopisu ---------- */
+
+  .note {
+    font-family: var(--typed);
+    font-size: 0.87rem;
+    line-height: 1.68;
+    background: var(--vellum-deep);
+    border-left: 3px solid var(--verdigris);
+    padding: 1.15rem 1.35rem 1.25rem;
+    margin: 0 0 1.4rem;
+  }
+  .note > :last-child { margin-bottom: 0; }
+  .note h3 {
+    font-family: var(--typed);
+    font-size: 0.87rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0;
+    margin: 1.5rem 0 0.45rem;
+  }
+  .note h3:first-child { margin-top: 0; }
+  .note p { margin-bottom: 0.85rem; max-width: none; }
+  .note ul { margin: 0 0 0.85rem; padding-left: 1.15rem; }
+  .note li { margin-bottom: 0.3rem; }
+  .note .tag {
+    display: block;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--verdigris);
+    margin-bottom: 0.9rem;
+  }
+
+  /* ---------- tablice w toku tekstu ---------- */
+
+  figure.plate { margin: 1.9rem 0 1.6rem; }
+
+  hr.rule {
+    max-width: var(--measure);
+    margin: 3.4rem 0;
+    border: 0;
+    border-top: 1px solid var(--vellum-edge);
+  }
+
+  /* ---------- stopka ---------- */
+
+  .colofon-end {
+    max-width: var(--measure);
+    margin-top: 4rem;
+    padding-top: 1.4rem;
+    border-top: 3px double var(--vellum-edge);
+    font-family: var(--typed);
+    font-size: 0.75rem;
+    line-height: 1.7;
+    color: var(--ink-faded);
+  }
+
+  /* ---------- druk / PDF ---------- */
+  /* Wierny wobec ekranu: welin, szyna marginaliów i stopień pisma zostają.
+     Zmienia się tylko to, co wynika ze skończonej wysokości strony. */
+
+  @page { size: A4; margin: 12mm; }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+    body { font-size: 1.02rem; }
+    .sheet { max-width: none; padding: 0; }
+    .frontis { margin-top: 0; }
+
+    /* szyna zostaje z lewej — węższa, bo strona A4 jest węższa od arkusza na ekranie */
+    .entry {
+      grid-template-columns: 6.5rem minmax(0, 1fr);
+      gap: 0 1.4rem;
+      margin-bottom: 1.8rem;
+    }
+    .entry > .rail { text-align: right; padding-top: 0.5rem; margin-bottom: 0; }
+
+    hr.rule { margin: 1.5rem 0; }
+    h3 { margin-top: 1.5rem; }
+    .colofon-end { margin-top: 1.8rem; }
+
+    /* ryciny: ograniczone wysokością strony, wyśrodkowane na sadzowym tle */
+    figure.plate { margin: 1rem 0 0.9rem; }
+    .plate img { max-height: 8.5cm; width: auto; max-width: 100%; margin-inline: auto; }
+    .plate--crop img { max-height: 11.5cm; object-fit: contain; }
+
+    /* łamanie */
+    figure.plate, .ledger, .ledger .row { break-inside: avoid; }
+    .note .tag, .note h3 { break-after: avoid; }
+
+    /* panel zasad ma zmieścić się na swojej kartce w całości */
+    .note { font-size: 0.82rem; line-height: 1.5; padding: 1rem 1.1rem 1.1rem; }
+    .note .tag { margin-bottom: 0.7rem; }
+    .note h3 { margin: 1rem 0 0.35rem; }
+    .note p { margin-bottom: 0.6rem; }
+    .note ul { margin-bottom: 0.6rem; }
+    .note li { margin-bottom: 0.18rem; }
+    h2, h3 { break-after: avoid; break-inside: avoid; }
+    .rail { break-after: avoid; }
+    p { orphans: 3; widows: 3; }
+    .titleblock { break-after: page; margin-bottom: 2rem; }
+    .entry--appendix { break-before: page; }
+  }
+</style>
+
+<div class="sheet">
+
+  <!-- ══════════ KARTA TYTUŁOWA ══════════ -->
+
+  <header class="frontis">
+    <figure class="plate plate--crop">
+      <img src="ryciny/dwor-barona.jpg" alt="Portret rodziny możnowładczej w komnacie: tęgi, wąsaty pan w zbroi z herbem czarnego lwa na złotym polu, obok niego dama, dwie młode panny i starsza dwórka.">
+      <figcaption>Dom de&nbsp;Basleur — czarny lew w polu złotym.</figcaption>
+    </figure>
+
+    <div class="titleblock">
+      <h1>Kronika Baronii&nbsp;Basleur</h1>
+      <p class="rubric">Warhammer Fantasy Roleplay, 2. edycja &middot; Księstwo Parravonu, u podnóża Gór Szarych</p>
+      <span class="fleuron"><svg viewBox="0 0 40 48" aria-hidden="true"><path d="M20 2C24 10 25 16 22.5 22h-5C15 16 16 10 20 2Z"/>
+<path d="M17.2 22C10 22 5 18 5 13c0-4 3-6 6-4 2.5 1.6 3.5 6 6.2 9Z"/>
+<path d="M22.8 22C30 22 35 18 35 13c0-4-3-6-6-4-2.5 1.6-3.5 6-6.2 9Z"/>
+<rect x="13" y="22.6" width="14" height="3.4" rx="1.2"/>
+<path d="M17.6 27h4.8c0 6 2.6 11 5.6 14-4 2-12 2-16 0 3-3 5.6-8 5.6-14Z"/></svg></span>
+    </div>
+  </header>
+
+  <!-- ══════════ PUNKT WYJŚCIA ══════════ -->
+
+  <section class="entry entry--open">
+    <div class="rail">Punkt wyjścia<span class="n">skąd się tu wzięliśmy</span></div>
+    <div class="col">
+      <h2>Młodsi synowie</h2>
+
+      <p class="lede versal">Bretonnia to najwspanialsze z cywilizowanych państw, kraina winem i miodem, umiłowana i chroniona przez Panią z Jeziora. Obowiązuje w niej jednak surowe prawo dziedziczenia stanowiące, że cały majątek rodziców jest po śmierci ojca przejmowany przez pierworodnego syna.</p>
+
+      <p>Macie to nieszczęście, że nie jesteście pierworodni&nbsp;:( Wasi ojcowie lub starsi bracia powinni zapewnić wam środki materialne na rozpoczęcie kariery pozbawionego ziemi błędnego rycerza, ale wiadomo, różnie to bywa…</p>
+
+      <p>Zostaliście przyjęci na dwór Barona de Basleur, potężnego magnata którego włości znajdują się „w” Księstwie Parravonu, u podnóża Gór Szarych. Za wierną służbę macie możliwość nauczenia się manier, zwyczajów wysoko urodzonych oraz rycerskiego rzemiosła. Dla szlachcica z prowincji, dwór Barona to wielki świat.</p>
+    </div>
+  </section>
+
+ ══════════ -->
+
+  <section class="entry">
+    <div class="rail">Kraina<span class="n">gdzie i jak duże</span></div>
+    <div class="col">
+      <h2>Baronia Basleur</h2>
+
+      <p>Kraina ludna i szczęśliwa. Leży w granicach księstwa Parravonu ale jej władca z racji posiadania tytułu barona nie jest lennikiem księcia, lecz odpowiada bezpośrednio przed królem. W przeszłości wybuchały liczne konflikty pomiędzy baronami de Basleur a książętami Parravonu, którzy z zazdrością spoglądali na te żyzne i bogate ziemie. Stosunki pomiędzy obecnym Baronem a Księciem Kasjanem są poprawne choć podszyte obopólną niechęcią.</p>
+
+      <h3>Baronia w liczbach — dla zobrazowania skali</h3>
+
+      <p>Ziemię Barona i jego wasali zamieszkuje ponad 400 000 mieszkańców, z czego przytłaczająca większość to chłopi. Baron ma na wezwanie z 300-tu wąsatych szlachciców. Ruszając na wyprawę wojenną może powołać 15 000 silnego chłopa.</p>
+
+      <p>W czasach dziada obecnego władcy z wierchu w doliny zeszło niespotykanie wielkie WAAAAH! pod wodzą strasznego herszta Uruka Łamignata. Dziad dla ratowania ojczyzny zebrał 60 000 chłopa, choć znaczna część tej „armii” uzbrojona była w widły, kosy i siekiery. Taka masa luda, wsparta przez wojska książęce starczyła by odeprzeć zagrożenie (choć taka mobilizacja sparaliżowała gospodarkę baronii) a pamięć o walecznym przodku jest czczona po dziś dzień.</p>
+
+      <p>Aby przejechać baronię na dobrym koniu z zachodu na wschód, zajmie to ze 3 dni. Z północy na południe będą to 4 dni.</p>
+
+      <div class="ledger">
+        <p class="ledger-title">Rachuba — skrót z tekstu powyżej, do rzucenia okiem przy stole</p>
+        <dl>
+          <div class="row"><dt>Mieszkańcy baronii i wasali</dt><span class="leader"></span><dd>ponad 400 000</dd></div>
+          <div class="row"><dt>Szlachta na wezwanie</dt><span class="leader"></span><dd>ok. 300</dd></div>
+          <div class="row"><dt>Pospolite ruszenie na wyprawę</dt><span class="leader"></span><dd>15 000</dd></div>
+          <div class="row"><dt>Mobilizacja dziada przeciw WAAAAH!</dt><span class="leader"></span><dd>60 000</dd></div>
+          <div class="row"><dt>Konno z zachodu na wschód</dt><span class="leader"></span><dd>3 dni</dd></div>
+          <div class="row"><dt>Konno z północy na południe</dt><span class="leader"></span><dd>4 dni</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ══════════ POSTACIE ══════════ -->
+
+  <section class="entry">
+    <div class="rail">Postacie<span class="n">dramatis personae</span></div>
+    <div class="col">
+      <h2>Postacie dramatu</h2>
+
+      <h3>Mistrz Bardaque „de Lyonesse”<span class="epithet">Nadworny astrolog, zaufany Baronowej</span></h3>
+
+      <p>Szlachcic z zachodniej części kraju który poświęcił się zgłębianiu tajemnic ukrytych w gwiazdach. Złożył oniegdaj śluby zakazujące zdradzania swego herbu i prawdziwego nazwiska. Ludzie złośliwi wątpią zarówno w jego kwalifikację jak i szlacheckie pochodzenie.</p>
+
+      <figure class="plate">
+        <img src="ryciny/bardaque.jpg" alt="Wychudzony starzec w gwiaździstym płaszczu i spiczastej czapce pochyla się nad rudowłosą, bosą dziewczyną trzymającą sak pełen żab; mokra posadzka krużganku, świece.">
+        <figcaption>Astrolog i jego córka nad fosą.</figcaption>
+      </figure>
+
+      <h3>Matylda „de Lyonesse”<span class="epithet">Jego córka &middot; przezywana „Lwicą”</span></h3>
+
+      <p>Istota płci żeńskiej w wieku nieokreślonym. Może być równie dobrze młodą panną niewyrośniętą z powodu wrodzonej chorobliwości, jak i nad wyraz wysokim i chudym dzieckiem. Dużo czasu spędza nad brzegami zamkowej fosy. Z racji przydomka pogardliwie nazywana jest „Lwicą”.</p>
+
+      <h3>Giles<span class="epithet">Chromy kuchcik &middot; wasz rówieśnik</span></h3>
+
+      <p>Schlebia mu utrzymywanie kontaktów z giermkami, czuje im się równym. Marzy święcie że on sam, pewnego dnia zostanie wyniesiony do rangi rycerza.</p>
+
+      <p>Choć praktycznie nie opuszcza kuchni, zna wszystkie plotki krążące po zamku i chętnie się nimi dzieli.</p>
+
+      <figure class="plate">
+        <img src="ryciny/giles.jpg" alt="Kędzierzawy chłopak w poplamionym fartuchu siedzi na beczce w zamkowej kuchni, jedną nogę ma w drewnianej szynie, w ręku miskę; w głębi paleniska i kucharze.">
+        <figcaption>Giles w kuchni, przy misce i przy plotce.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ══════════ PLOTKI ══════════ -->
+
+  <section class="entry">
+    <div class="rail">Plotka<span class="n">słyszane na zamku</span></div>
+    <div class="col">
+      <h2>Problemy z Krasnoludami</h2>
+
+      <p>W ostatnich latach coraz więcej krasnoludów schodzi z gór i osiedla się w Bretonni. Jest to lud dumny, szorstki i nieokrzesany. Okazują pogardę do tradycyjnej, szlacheckiej kultury i niechętnie uczą się pięknego języka bretońskiego. Znane są z bezgranicznej pazerności, ich miłość do złota i cennych kamieni jest legendarna.</p>
+
+      <p>Ich obecność budzi nienawiść przede wszystkim u prostego ludu. Na ziemiach Księstwa Parravonu miały już miejsce pierwsze pogromy i wypędzenia. Wielu dziwi fakt, iż Baron de Basler zwie siebie „Przyjacielem Krasnoludów”. Nie tylko toleruje je na swych włościach, a wręcz gości na zamku! Prosty lud jest przekonany, że krasnoludy lubują się w szwindlach, obrzynają monety, przynoszą pecha i porywają bretońskie dzieci.</p>
+    </div>
+  </section>
+
+  <section class="entry">
+    <div class="rail">Plotka<span class="n">północny Parravon</span></div>
+    <div class="col">
+      <h2>Czarny Koń</h2>
+
+      <p>Ziemię północnego Parravonu tratuje kopytami pozbawiony jeźdźca, dziki rumak o sierści czarnej niczym skrzydła kruka. Świadkowie opowiadają, iż jest to bestia niezwykle silna, o nieziemskiej urodzie. Szybki niczym wicher a sprytniejszy od człowieka. Rycerstwo wielokrotnie starało się pochwycić owego konia. On jednak za każdym razem, w niezwykły i niezrozumiały sposób umykał z obławy.</p>
+
+      <p>Prosty lud szepcze lękliwie, iż czarny koń jest znakiem od bogów. Zwiastunem wojny i nadchodzących, niezwykłych oraz strasznych wydarzeń.</p>
+    </div>
+  </section>
+
+  <section class="entry">
+    <div class="rail">Plotka<span class="n">rubież północno-wschodnia</span></div>
+    <div class="col">
+      <h2>Pleni się bandycki proceder na północno-wschodniej rubieży</h2>
+
+      <p>Czarny Las to gęste i ponure miejsce na granicy Baronii. Od lat był schronieniem dla bestii, wiedźm i grzeszników o ciałach powykręcanych przez diabelskie moce.</p>
+
+      <p>Ostatnio zaczęła działać tam banda wyjętych spod prawa okrutnych zbójców nazywanych przez chłopów „Stunogimi”, dlaczego? Nikt nie jest w stanie odpowiedzieć.</p>
+
+      <figure class="plate">
+        <img src="ryciny/stunodzy.jpg" alt="Gromada zakapturzonych zbójców z łukami i toporami w gęstwinie poskręcanych, omszałych drzew; w oddali sylwetka zamku o zachodzie słońca.">
+        <figcaption>„Stunodzy” w Czarnym Lesie.</figcaption>
+      </figure>
+
+      <p>Napadają folwarki i komory celne, zabijają zarządców i starszych wioskowych. Podburzają chłopów do oporu przeciwko władzy, przypisuje im się odpowiedzialność za zniknięcia kupców i podróżnych na szlakach w okolicach puszczy.</p>
+
+      <p>Władze Baronii oskarżają swego sąsiada, Markiza de Roche-Blanche (człeka trudnego charakteru, skąpca i pieniacza) o wspieranie bandy.</p>
+    </div>
+  </section>
+
+  <section class="entry">
+    <div class="rail">Plotka<span class="n">ziemie na zachód</span></div>
+    <div class="col">
+      <h2>Uprowadzenie Heleny</h2>
+
+      <p>Orszak wiozący Helenę de Hafleur (córkę lorda którego ziemię rozciągają się na zachód od Baronii) został w biały dzień zaatakowany na trakcie przez raubritterów-rycerzy renegatów. Zbójcy wraz z porwaną panną zbiegli nie pozostawiając po sobie śladu.</p>
+
+      <figure class="plate">
+        <img src="ryciny/helena.jpg" alt="Brodaty rycerz w zielonym płaszczu z lilią burbońską obejmuje zapłakaną czarnowłosą pannę w zielonej sukni; za nimi arras z bitwą i okno komnaty.">
+        <figcaption>Lord de&nbsp;Hafleur i Helena — zanim orszak wyruszył.</figcaption>
+      </figure>
+
+      <p>Baron wraz z drużyną ruszył wspomóc sąsiada w zadaniu uratowania białogłowej. Po kilku dniach bezowocnych poszukiwań atmosfera wyprawy, coraz to bardziej zaczęła przypominać kulig z pijaństwem i ucztami od zamku do zamku. Ostatecznie Baron z rycerzami powrócił do siebie by skupić się na przygotowaniach do turnieju.</p>
+
+      <p>Lord de Hafleur i jego ludzie nadal przeczesują swe ziemie. Pomaga im gromada błędnych rycerzy — młodzików bez grosza przy duszy ale poruszonych faktem, że panna tak piękna i czysta duchem znajduje się w szponach bandytów.</p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+
+  <!-- ══════════ TWORZENIE POSTACI ══════════ -->
+
+  <section class="entry entry--appendix">
+    <div class="rail">Wytyczne<span class="n">nie narracja</span></div>
+    <div class="col">
+      <h2>Tworzenie postaci</h2>
+
+      <div class="note">
+        <span class="tag">Zasady tworzenia postaci — od Mistrza Gry</span>
+
+        <h3>Koncept wspólny</h3>
+        <p>Gracie giermków, najlepszych kumpli — ustalcie postacie razem. Wiek nastoletni: obowiązki już męskie, mentalność jeszcze niekoniecznie.</p>
+
+        <h3>Mechanika</h3>
+        <p>Obaj startujecie jako giermkowie (2. edycja), ale macie swobodę w doborze umiejętności, żeby postacie się różniły i uzupełniały. Ten z bogatszej rodziny lepiej orientuje się w sprawach dworskich i ma za sobą wstępną edukację; biedniejszy umie łowić w lesie albo dobrze bić się na pięści.</p>
+
+        <h3>Tło — wystarczy kilka zdań</h3>
+        <ul>
+          <li>z jakiej rodziny pochodzicie i jakie macie z nią relacje,</li>
+          <li>kilka cech charakterystycznych — pozytywnych i negatywnych,</li>
+          <li>jak odnajdujecie się na zamku i w otaczającym go dużym mieście,</li>
+          <li>jaki macie stosunek do rycerskiego etosu.</li>
+        </ul>
+
+        <h3>Wasi rycerze</h3>
+        <p>Opiszcie w paru słowach rycerzy, którym służycie. Najpewniej są to pozbawieni ziemi członkowie drużyny Barona, oddający swe miecze i honor za wikt i opierunek.</p>
+
+        <h3>Obiekt westchnień</h3>
+        <p>Jesteście w tym wieku, gdy dziewczyny przestają się wydawać głupie. Warto wybrać obiekt zainteresowania:</p>
+        <ul>
+          <li>piękna córka Barona — czysta mrzonka,</li>
+          <li>panna z dworu,</li>
+          <li>mieszczańska córka — bardziej chętna niż cnotliwe szlachcianki.</li>
+        </ul>
+        <p>Taka znajomość otwiera kontakty z grupą społeczną, z której dziewczyna pochodzi. Może się przydać, jeśli wplączecie się w intrygę.</p>
+
+        <h3>Współtworzenie</h3>
+        <p>MG zakłada dużą swobodę i wasz udział w budowaniu przygody — propozycje mile widziane, także w trakcie gry.</p>
+      </div>
+    </div>
+  </section>
+
+  <p class="colofon-end">
+    Kronika Baronii Basleur &middot; Warhammer Fantasy Roleplay, 2. edycja
+  </p>
+
+</div>
