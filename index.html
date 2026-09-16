@@ -299,13 +299,21 @@
     .sheet { max-width: none; padding: 0; }
     .frontis { margin-top: 0; }
 
-    /* szyna zostaje z lewej — węższa, bo strona A4 jest węższa od arkusza na ekranie */
+    /* Szyna zostaje z lewej, ale nie przez grid: Chrome nie dzieli kontenera grid
+       między strony, tylko przerzuca go w całości — stąd strony z samą ryciną.
+       Float łamie się normalnie, więc sekcja może przejść na kolejną stronę. */
     .entry {
-      grid-template-columns: 6.5rem minmax(0, 1fr);
-      gap: 0 1.4rem;
+      display: block;
       margin-bottom: 1.8rem;
     }
-    .entry > .rail { text-align: right; padding-top: 0.5rem; margin-bottom: 0; }
+    .entry > .rail {
+      float: left;
+      width: 6.5rem;
+      margin: 0 1.4rem 0 0;
+      padding-top: 0.5rem;
+      text-align: right;
+    }
+    .entry > .col { margin-left: 7.9rem; }
 
     hr.rule { margin: 1.5rem 0; }
     h3 { margin-top: 1.5rem; }
